@@ -1,0 +1,32 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+  http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<!-- This is an example of injecting a particular value into an instance. Each bean is an instance of the class.-->
+	<bean name="HelloService" class="us.pojo.ServiceImpl">
+		<constructor-arg value="Hello"/>
+	</bean>
+	
+	<bean name="InfoService" class="us.pojo.ServiceImpl">
+		<constructor-arg value="This is some interesting information."/>
+	</bean>
+	
+	<bean name="GoodbyeService" class="us.pojo.ServiceImpl">
+		<constructor-arg value="Goodbye"/>
+	</bean>
+	
+	<!-- this is an example of injecting other instances into another instance of a class (the ServiceChain class, which will call each class in order) -->
+	<bean name="ConversationService" class="us.pojo.ServiceChain">
+		<constructor-arg>
+			<util:list>
+				<ref bean="HelloService"/>
+				<ref bean="InfoService"/>
+				<ref bean="GoodbyeService"/>
+			</util:list>
+		</constructor-arg>
+	</bean>
+	
+	
+</beans>

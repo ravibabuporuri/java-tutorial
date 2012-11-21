@@ -1,0 +1,84 @@
+<!-- Maven provides a way to have a standardized build file that describes 
+	all of the things needed to build, test, package and run a project. Documentation 
+	about maven can be found at http://maven.apache.org 
+	
+	To build this on the command line, just type 'mvn package', and you will find the JAR file in the target directory
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<!-- this specifies that we are using the xml format for maven versions 
+		2 and 3. Maven version 1 was different. -->
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- this is usually the package of your classes, it should be unique so 
+		that when somebody is importing your project, there aren't collisions with 
+		other projects -->
+	<groupId>us.pojo</groupId>
+
+	<!-- This should be a string with no spaces. This will be what your jar/war/ear 
+		is named -->
+	<artifactId>SpringContextExample</artifactId>
+
+	<!-- This is the version of your code. A '-SNAPSHOT' at the end means that 
+		it is not the final build yet. When you are ready to release this code for 
+		other people to use, you should remove the '-SNAPSHOT' from the version and 
+		do a 'mvn deploy', then increment the version and add the '-SNAPSHOT' back 
+		on. -->
+	<version>1.0-SNAPSHOT</version>
+
+	<!-- This is a human readable name for your project -->
+	<name>Spring Context Example</name>
+
+	<!-- This is a longer description for your project -->
+	<description>Information on how to create a spring context</description>
+
+	<!-- This block contains all of the settings that are necessary to build -->
+	<build>
+		<plugins>
+			<!-- This plugin tells Maven to build with Java6 -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- All of the dependencies for this project are listed here -->
+	<dependencies>
+		<!-- Maven has dependency resolution, which will download the below artifact. 
+			It will also download the POM file for this artifact and download all of 
+			the other dependencies. If you type 'mvn dependency:tree'. This below dependency 
+			will pull in spring-context, as well as spring-aop (which pulls in aopalliance), 
+			spring-beans, spring-core, commons-logging, spring-expression, and spring-asm -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>3.1.0.RELEASE</version>
+			<!-- the scope tells Maven where the dependency is needed. The options 
+				are: 
+				1) compile (this is default, if you leave off the scope, it will use 
+				this). This means that the dependency is needed during the compile phase, 
+				as well as when it is being tested and run and will be packaged into a WAR/EAR 
+				2) test; This means that the artifact will only be present when running tests 
+				3) provided; This means that the artifact will be included while compiling/testing, 
+				but will not be packaged. You need to set things that are provided by a J2EE 
+				container as this (such as the j2ee-api, since it is actually illegal to 
+				add them to a WAR) 
+				4) runtime; this means that the artifact will be included 
+				while testing/running but not during compiling -->
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- This dependency allows us to use slf4j, which is a nice logging mechanism -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.2</version>
+		</dependency>
+	</dependencies>
+
+</project>
