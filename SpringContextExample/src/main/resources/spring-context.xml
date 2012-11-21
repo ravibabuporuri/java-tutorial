@@ -28,5 +28,18 @@
 		</constructor-arg>
 	</bean>
 	
+	<!-- This configuration file is the same as doing this in Java code... for example:
+	
+	Service HelloService = new ServiceImpl("Hello");
+	Service InfoService = new ServiceImpl("This is some interesting information");
+	Service GoodbyeService = new ServiceImpl("Goodbye");
+	Service ConversationService = new ServiceChain(new ArrayList<Service>() {{ add(HelloService); add(InfoService); add(GoodbyeService); }});
+	
+	This doesn't seem all that helpful since this is such a simple example, but in 
+	larger programs that have a lot of dependencies Spring can realy simplify things,
+	and it makes it easy to expose things via a webservice.
+	
+	 -->
+	
 	
 </beans>
